@@ -1,5 +1,4 @@
-﻿using Entities;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -10,18 +9,32 @@ namespace Repositories
     {
         // declare field of type DataContext
 
-        public ProductRepository(<parameter>)
+        public Dictionary<int, string> ProductDictionary = new Dictionary<int, string>();
+        public string Productname;
+        public int Productid;
+    
+
+
+        public ProductRepository(int productid, string productname, Dictionary<int, string> productDictionary)
         {
-            //initialize the DataContext field with parameter passed    
+            //  initialize the DataContext field with parameter passed
+
+
+
+            this.Productid = productid;
+            this.Productname = productname;
+            this.ProductDictionary = productDictionary;
         }
 
         /*
          * this method should accept product data and add it to the product collection
          * 
          */
-        public <return_type> AddProduct(<parameter>)
+        public void AddProduct(string productname, int productid)
+
         {
-            // code to add product to file, ensuring that product is not null
+            ProductDictionary.Add(productid, productname);
+            Console.WriteLine("Product added successfully");
         }
 
 
@@ -31,9 +44,21 @@ namespace Repositories
          * 
          * the method should return true for success and false for invalid id 
          */
-        public <return_type> RemoveProduct(<parameter>)
+        public bool RemoveProduct(int productid)
         {
             // code to remove product by the id provided from file as parameter    
+            if (ProductDictionary.ContainsKey(productid))
+            {
+                ProductDictionary.Remove(productid);
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
+
+
         }
 
         /*
@@ -43,9 +68,16 @@ namespace Repositories
          * 
          * the method should return null for non-matching product name
          */
-        public <return_type> GetProduct(<parameter>)
+        public bool GetProduct(string productname)
         {
-
+            if (ProductDictionary.ContainsValue(productname))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /*
@@ -55,17 +87,25 @@ namespace Repositories
          * 
          * the method should return null for non-matching product id
          */
-        public <return_type> GetProduct(<parameter>)
+        public bool GetProduct(int productid)
         {
-
+            if (ProductDictionary.ContainsKey(productid))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        
+
         /*
          * this method should return all items from the product collection
          */
-        public <return_type> GetAllProducts()
+        public Dictionary<int, string> GetAllProducts()
         {
+            return ProductDictionary;
 
         }
     }
