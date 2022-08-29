@@ -4,15 +4,17 @@ using System.Collections.Generic;
 
 namespace ProductModuleApp
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+
             /*
              * code here is not mandatory but will help 
              * to understand flow better
              */
-             Dictionary<int, string> ProductDictionary2 = new Dictionary<int, string>();
+            Dictionary<int, string> ProductDictionary2 = new Dictionary<int, string>();
+
 
             ProductRepository Items = new ProductRepository(11, "Kettle", ProductDictionary2);
             Items.AddProduct("Apple", 1);
@@ -82,6 +84,12 @@ namespace ProductModuleApp
             {
                 Console.WriteLine($"Product ID:{things.Key}, Product name:{things.Value}");
             }
+
+            DataContext dataContext = new DataContext("ProductAssignment.txt", @"C: \Users\mavijayakumar\source\repos\fai001 - exercise - product - management - file - io - module\ProductAppAssignment");
+            dataContext.ReadProducts("ProductAssignment.txt",@"C: \Users\mavijayakumar\source\repos\fai001 - exercise - product - management - file - io - module\ProductAppAssignment");
+            dataContext.AddProduct(ProductDictionary2, 13, "Lamp");
+            dataContext.SaveChanges(ProductDictionary2, @"C: \Users\mavijayakumar\source\repos\fai001 - exercise - product - management - file - io - module\ProductAppAssignment");
+            dataContext.CleanUp("ProductAssignment.txt", @"C: \Users\mavijayakumar\source\repos\fai001 - exercise - product - management - file - io - module\ProductAppAssignment");
         }
     }
 }
